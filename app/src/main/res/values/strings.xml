@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GCM_Firebase</string>
+    <string name="action_settings">Settings</string>
+</resources>
