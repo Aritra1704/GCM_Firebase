@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.arpaul.gcm_firebase.adapter.ChatMessageAdapter;
 import com.arpaul.gcm_firebase.common.AppConstants;
@@ -23,7 +26,11 @@ import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
 
+    //https://firebase.google.com/docs/cloud-messaging/android/upstream?authuser=2
+
     private RecyclerView rvChatMessages;
+    private EditText edtMessage;
+    private ImageView btnSend;
     private ChatMessageAdapter adapter;
     private ArrayList<MessageDO> arrChat = null;
 
@@ -43,6 +50,13 @@ public class ChatActivity extends AppCompatActivity {
 
     private void bindControls(){
         arrChat = new ArrayList<>();
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -83,5 +97,8 @@ public class ChatActivity extends AppCompatActivity {
         rvChatMessages = (RecyclerView) findViewById(R.id.rvChatMessages);
         adapter = new ChatMessageAdapter(ChatActivity.this, new ArrayList<MessageDO>());
         rvChatMessages.setAdapter(adapter);
+
+        edtMessage = (EditText) findViewById(R.id.edtMessage);
+        btnSend = (ImageView) findViewById(R.id.btnSend);
     }
 }
