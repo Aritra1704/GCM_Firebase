@@ -6,5 +6,5 @@ package com.arpaul.gcm_firebase.common;
 
 public class AppConstants {
 
-    public String SENDER_ID = "gcm-udacity";
+    public static final String ACTION_REFRESH      = "ACTION_REFRESH";
 }

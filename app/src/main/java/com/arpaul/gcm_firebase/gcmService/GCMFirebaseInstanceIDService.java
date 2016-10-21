@@ -12,7 +12,7 @@ import static com.google.android.gms.plus.PlusOneDummyView.TAG;
  * Created by Aritra on 20-10-2016.
  */
 
-public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
+public class GCMFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     @Override
     public void onTokenRefresh() {
@@ -33,6 +33,6 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     }
 
     private void sendRegistrationToServer(String token){
-        Log.i(TAG, "GCM Registration Token: " + token);
+        Log.i(TAG, "FCM Registration Token: " + token);
     }
 }

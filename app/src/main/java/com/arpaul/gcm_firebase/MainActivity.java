@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arpaul.gcm_firebase.common.AppPreference;
-import com.arpaul.gcm_firebase.gcmService.MyFirebaseInstanceIDService;
+import com.arpaul.gcm_firebase.gcmService.GCMFirebaseInstanceIDService;
 import com.arpaul.utilitieslib.UnCaughtException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -26,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "MainActivity";
     private TextView tvText;
+    private Toolbar toolbar;
+    private FloatingActionButton fab;
+
+
+    //https://firebase.google.com/docs/?authuser=2
+    //https://console.firebase.google.com/project/gcm-firebase-35787/notification?authuser=2
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,23 +40,29 @@ public class MainActivity extends AppCompatActivity {
         Thread.setDefaultUncaughtExceptionHandler(new UnCaughtException(MainActivity.this,"aritra1704@gmail.com",getString(R.string.app_name)));
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        initializeControls();
+
+        bindControls();
+
+        checkPlaystore();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkPlaystore();
+    }
+
+    private void bindControls(){
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(MainActivity.this, ChatActivity.class));
             }
         });
 
-        checkPlaystore();
-
-        tvText = (TextView) findViewById(R.id.tvText);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -61,13 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     tvText.setText(sentToken);
                 }
             }
-        }, 15 * 1000);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        checkPlaystore();
+        }, 5 * 1000);
     }
 
     private void checkPlaystore(){
@@ -77,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             // application with GCM.
             String sentToken = new AppPreference(this).getStringFromPreference(AppPreference.GCM_TOKEN, "");
             if (TextUtils.isEmpty(sentToken)) {
-                Intent intent = new Intent(this, MyFirebaseInstanceIDService.class);
+                Intent intent = new Intent(this, GCMFirebaseInstanceIDService.class);
                 startService(intent);
             }
         }
@@ -120,5 +126,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initializeControls(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        tvText = (TextView) findViewById(R.id.tvText);
     }
 }
