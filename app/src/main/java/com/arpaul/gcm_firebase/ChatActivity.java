@@ -17,6 +17,8 @@ import com.arpaul.gcm_firebase.adapter.ChatMessageAdapter;
 import com.arpaul.gcm_firebase.common.AppConstants;
 import com.arpaul.gcm_firebase.dataObjects.MessageDO;
 import com.arpaul.utilitieslib.UnCaughtException;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 
 import java.util.ArrayList;
 
